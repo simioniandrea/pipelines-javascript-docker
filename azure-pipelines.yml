@@ -21,6 +21,7 @@ stages:
       displayName: Build an image
       inputs:
         containerRegistry: 'DeployPOC-container registry'
+        repository: '$(imageRepo)'
         command: 'buildAndPush'
         Dockerfile: '$(Build.SourcesDirectory)/app/Dockerfile'
         tags: |
