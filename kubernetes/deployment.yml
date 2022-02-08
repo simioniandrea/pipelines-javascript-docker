@@ -16,4 +16,4 @@ spec:
         - name: sampleapp 
           image: deploypocmycontainerregistry.azurecr.io/sampleapp
           ports:
-          - containerPort: 80
+          - containerPort: 8080
