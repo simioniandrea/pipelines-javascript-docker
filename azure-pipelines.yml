@@ -37,6 +37,7 @@ stages:
   dependsOn: Build
   variables:
     acrsecret: k8sexamplesacrauth
+    acrdevurl: 'deploypocmycontainerregistry.azurecr.io'
   jobs:
     - job: Deploy
       displayName: Deploy to AKS
@@ -64,6 +65,8 @@ stages:
           manifests: |
             $(Pipeline.Workspace)/manifests/deployment.yml
             $(Pipeline.Workspace)/manifests/service.yml
+          containers: '$(acrdevurl)/$(imageRepo):$(tag)'
+          imagePullSecrets: '$(acrsecret)'
 
   
 
