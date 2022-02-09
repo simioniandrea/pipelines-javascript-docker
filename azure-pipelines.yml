@@ -72,7 +72,7 @@ stages:
           azureSubscription: 'deployPOC-ARM'
           scriptType: 'pscore'
           scriptLocation: 'inlineScript'
-          inlineScript: 'az mysql server create --resource-group ${{ parameters.customerID }} --name ${{ parameters.customerID }} --location westus --admin-user myadminprova --admin-password Cavallopazzo01!1!!1 --sku-name GP_Gen5_2'
+          inlineScript: 'az mysql server create --resource-group ${{parameters.customerID}}mysqlserverprova --name ${{ parameters.customerID }} --location westus --admin-user myadminprova --admin-password Cavallopazzo01!1!!1 --sku-name GP_Gen5_2'
       - task: DownloadPipelineArtifact@2
         inputs:
           buildType: 'current'
