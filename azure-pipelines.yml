@@ -8,6 +8,28 @@ variables:
   imageRepo: sampleapp
   tag: '$(Build.BuildId)'
 
+parameters:
+  - name: customerID
+    displayName: customer ID
+    type: string
+    default: 'PIPPO'
+  - name: customerCompanyName
+    displayName: customer company name
+    type: string
+    default: 'PIPPOSRL'
+  - name: subscriptionPlan
+    displayName: subscription plan
+    type: string
+    default: 'basic'
+  - name: startDate
+    displayName: start date
+    type: string
+    default: '1-1-2022'
+  - name: finishDate
+    displayName: finish date
+    type: string
+    default: '31-12-2022'
+
 stages:
 - stage: Build
   displayName: Build image
@@ -50,7 +72,7 @@ stages:
           azureSubscription: 'deployPOC-ARM'
           scriptType: 'pscore'
           scriptLocation: 'inlineScript'
-          inlineScript: 'az mysql server create --resource-group $(imageRepo) --name $(imageRepo) --location westus --admin-user myadminprova --admin-password Cavallopazzo01!1!!1 --sku-name GP_Gen5_2'
+          inlineScript: 'az mysql server create --resource-group ${{ parameters.customerID }} --name ${{ parameters.customerID }} --location westus --admin-user myadminprova --admin-password Cavallopazzo01!1!!1 --sku-name GP_Gen5_2'
       - task: DownloadPipelineArtifact@2
         inputs:
           buildType: 'current'
