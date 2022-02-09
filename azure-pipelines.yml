@@ -48,7 +48,7 @@ stages:
       - task: AzureCLI@2
         inputs:
           azureSubscription: 'deployPOC-ARM'
-          scriptType: 'ps'
+          scriptType: 'pscore'
           scriptLocation: 'inlineScript'
           inlineScript: 'az mysql server create --resource-group $(imageRepo) --name $(imageRepo) --location westus --admin-user myadminprova --admin-password Cavallopazzo01!1!!1 --sku-name GP_Gen5_2'
       - task: DownloadPipelineArtifact@2
