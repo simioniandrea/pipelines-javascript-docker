@@ -17,3 +17,6 @@ spec:
           image: deploypocmycontainerregistry.azurecr.io/sampleapp
           ports:
           - containerPort: 8080
+          env:
+          - name: RESPONSE
+            value: #customResponse#
