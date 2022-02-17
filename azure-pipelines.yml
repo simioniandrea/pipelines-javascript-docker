@@ -87,6 +87,10 @@ stages:
           DatabaseName: 'Pippoooooooo'
           SqlUsername:  'admin01@analyticserver01'
           SqlPassword:  'Analisidati01'
+          TaskNameSelector: 'InlineSqlTask'
+          SqlInline: |
+            DROP DATABASE IF EXISTS quickstartdb;
+            CREATE DATABASE quickstartdb;
           IpDetectionMethod: 'AutoDetect'
       - task: AzureCLI@2
         inputs:
