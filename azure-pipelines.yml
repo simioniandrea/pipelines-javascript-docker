@@ -83,14 +83,13 @@ stages:
       - task: AzureMysqlDeployment@1
         inputs:
           azureSubscription: 'deployPOC-ARM'
-          ServerName:  'analyticserver01.mysql.database.azure.com'
-          DatabaseName: 'Pippoooooooo'
-          SqlUsername:  'admin01@analyticserver01'
-          SqlPassword:  'Analisidati01'
+          ServerName:  '${{parameters.dbServer}}'
+          SqlUsername:  '${{parameters.dbUser}}'
+          SqlPassword:  '${{parameters.dbPassword}}'
           TaskNameSelector: 'InlineSqlTask'
           SqlInline: |
-            DROP DATABASE IF EXISTS quickstartdb;
-            CREATE DATABASE quickstartdb;
+            DROP DATABASE IF EXISTS ${{parameters.customerID}};
+            CREATE DATABASE ${{parameters.customerID}};
           IpDetectionMethod: 'AutoDetect'
       - task: AzureCLI@2
         inputs:
