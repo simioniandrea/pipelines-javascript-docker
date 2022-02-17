@@ -10,10 +10,10 @@ spec:
   template:
     metadata:
       labels:
-        app: sampleapp 
+        app: sampleappprova 
     spec:
       containers:
-        - name: sampleappprova 
+        - name: sampleappprova
           image: deploypocmycontainerregistry.azurecr.io/sampleapp
           ports:
           - containerPort: 8080
