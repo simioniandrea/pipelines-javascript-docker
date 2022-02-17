@@ -94,8 +94,8 @@ stages:
           DatabaseName: '${{parameters.customerID}}'
           SqlUsername: '${{parameters.dbUser}}'
           SqlPassword: '${{parameters.dbPassword}}'
-          TaskNameSelector: 'SqlTaskFile'
           IpDetectionMethod: 'AutoDetect'
+      
 
       - task: DownloadPipelineArtifact@2
         inputs:
