@@ -62,7 +62,6 @@ stages:
     acrsecret: k8sexamplesacrauth
     acrdevurl: 'deploypocmycontainerregistry.azurecr.io'
     customResponse: 'Hello world ${{parameters.customerID}}'
-    customdns: ${{parameters.customerID}}
   jobs:
     - job: Deploy
       displayName: Deploy to AKS
@@ -93,21 +92,6 @@ stages:
         inputs:
           rootDirectory: '$(Pipeline.Workspace)/manifests/'
           targetFiles: 'deployment.yml'
-          encoding: 'auto'
-          tokenPattern: 'custom'
-          tokenPrefix: '#'
-          tokenSuffix: '#'
-          writeBOM: true
-          actionOnMissing: 'warn'
-          keepToken: false
-          actionOnNoFiles: 'continue'
-          enableTransforms: false
-          useLegacyPattern: false
-          enableTelemetry: true
-      - task: replacetokens@5
-        inputs:
-          rootDirectory: '$(Pipeline.Workspace)/manifests/'
-          targetFiles: 'service.yml'
           encoding: 'auto'
           tokenPattern: 'custom'
           tokenPrefix: '#'
