@@ -29,6 +29,18 @@ parameters:
     displayName: finish date
     type: string
     default: '31-12-2022'
+  - name: dbUser
+    displayName: db User
+    type: string
+    default: pippo
+  - name: dbServer
+    displayName: db Server
+    type: string
+    default: pippoServer
+  - name: dbPassword
+    displayName: db Password
+    type: string
+    default: pippo    
 
 stages:
 - stage: Build
@@ -74,6 +86,17 @@ stages:
           scriptType: 'pscore'
           scriptLocation: 'inlineScript'
           inlineScript: 'az mysql server create --resource-group ${{parameters.customerID}}ResourceGroup --name ${{ parameters.customerID }}mysqlserverdiprova --location westus --admin-user myadminprova --admin-password SintraOH01!1!!1 --sku-name GP_Gen5_2'
+      
+      - task: AzureMysqlDeployment@1
+        inputs:
+          azureSubscription: 'deployPOC-ARM'
+          ServerName: '${{parameters.dbServer}}'
+          DatabaseName: '${{parameters.customerID}}'
+          SqlUsername: '${{parameters.dbUser}}'
+          SqlPassword: '${{parameters.dbPassword}}'
+          TaskNameSelector: 'SqlTaskFile'
+          IpDetectionMethod: 'AutoDetect'
+
       - task: DownloadPipelineArtifact@2
         inputs:
           buildType: 'current'
