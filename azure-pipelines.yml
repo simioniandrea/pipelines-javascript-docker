@@ -32,15 +32,15 @@ parameters:
   - name: dbUser
     displayName: db User
     type: string
-    default: pippo
+    default: admin01@analyticserver01
   - name: dbServer
     displayName: db Server
     type: string
-    default: pippoServer
+    default: analyticserver01.mysql.database.azure.com
   - name: dbPassword
     displayName: db Password
     type: string
-    default: pippo    
+    default: Analisidati01    
 
 stages:
 - stage: Build
@@ -90,10 +90,10 @@ stages:
       - task: AzureMysqlDeployment@1
         inputs:
           azureSubscription: 'deployPOC-ARM'
-          ServerName: '${{parameters.dbServer}}'
+          ServerName:  '${{parameters.dbServer}}'
           DatabaseName: '${{parameters.customerID}}'
-          SqlUsername: '${{parameters.dbUser}}'
-          SqlPassword: '${{parameters.dbPassword}}'
+          SqlUsername:  '${{parameters.dbUser}}'
+          SqlPassword:  '${{parameters.dbPassword}}'
           IpDetectionMethod: 'AutoDetect'
       
 
