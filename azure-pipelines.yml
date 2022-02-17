@@ -80,13 +80,6 @@ stages:
       pool:
         vmImage: ubuntu-latest
       steps:
-      - task: AzureCLI@2
-        inputs:
-          azureSubscription: 'deployPOC-ARM'
-          scriptType: 'pscore'
-          scriptLocation: 'inlineScript'
-          inlineScript: 'az mysql server create --resource-group ${{parameters.customerID}}ResourceGroup --name ${{ parameters.customerID }}mysqlserverdiprova --location westus --admin-user myadminprova --admin-password SintraOH01!1!!1 --sku-name GP_Gen5_2'
-      
       - task: AzureMysqlDeployment@1
         inputs:
           azureSubscription: 'deployPOC-ARM'
@@ -95,8 +88,13 @@ stages:
           SqlUsername:  'admin01@analyticserver01'
           SqlPassword:  'Analisidati01'
           IpDetectionMethod: 'AutoDetect'
+      - task: AzureCLI@2
+        inputs:
+          azureSubscription: 'deployPOC-ARM'
+          scriptType: 'pscore'
+          scriptLocation: 'inlineScript'
+          inlineScript: 'az mysql server create --resource-group ${{parameters.customerID}}ResourceGroup --name ${{ parameters.customerID }}mysqlserverdiprova --location westus --admin-user myadminprova --admin-password SintraOH01!1!!1 --sku-name GP_Gen5_2'
       
-
       - task: DownloadPipelineArtifact@2
         inputs:
           buildType: 'current'
