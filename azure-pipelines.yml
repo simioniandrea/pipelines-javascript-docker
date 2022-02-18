@@ -141,18 +141,19 @@ stages:
       - task: KubectlInstaller@0
         inputs:
           kubectlVersion: 'latest'
-      - task: AzureCLI@2
+      - task: Kubernetes@1
         inputs:
-          azureSubscription: 'deployPOC-ARM'
-          scriptType: 'pscore'
-          scriptLocation: 'inlineScript'
-          inlineScript: |
-            az aks get-credentials --name myapp  --resource-group myapp-rg
+          connectionType: 'Kubernetes Service Connection'
+          kubernetesServiceEndpoint: 'deployPOC-Kubernetes'
+          command: 'get'
+          arguments: 'services --namespace default  --output jsonpath=''{.items[?(.spec.selector.app=="sampleapp")].status.loadBalancer.ingress[0].ip}'''
+          secretType: 'dockerRegistry'
+          containerRegistryType: 'Azure Container Registry'
       - task: InlineAzurePowershell@1
         inputs:
          ConnectedServiceNameSelector: 'ConnectedServiceNameARM'
          ConnectedServiceNameARM: 'deployPOC-ARM'
-         Script: 'Write-Output ''$(AKSURL)'''
+         Script: 'Write-Output ''$(task6.KubectlOutput)'''
       
 
       
