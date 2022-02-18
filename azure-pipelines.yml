@@ -12,7 +12,7 @@ parameters:
   - name: customerID
     displayName: customer ID
     type: string
-    default: 'PIPPO'
+    default: 'pluto'
   - name: customerCompanyName
     displayName: customer company name
     type: string
@@ -138,6 +138,23 @@ stages:
             $(Pipeline.Workspace)/manifests/second-service.yml
           containers: '$(acrdevurl)/$(imageRepo):$(tag)'
           imagePullSecrets: '$(acrsecret)'
+      - task: AzureCLI@2
+        inputs:
+          azureSubscription: 'deployPOC-ARM'
+          scriptType: 'pscore'
+          scriptLocation: 'inlineScript'
+          inlineScript: |
+            az aks get-credentials --name myapp  --resource-group myapp-rg
+            $externalIp = (kubectl get services --namespace default  --output jsonpath='{.items[?(.spec.selector.app=="sampleapp")].status.loadBalancer.ingress[0].ip}' )
+            Write-Host($externalIp) Write-Output("##vso[task.setvariable variable=AKSURL;]$externalIp")
+      - task: InlineAzurePowershell@1
+        inputs:
+         ConnectedServiceNameSelector: 'ConnectedServiceNameARM'
+         ConnectedServiceNameARM: 'deployPOC-ARM'
+         Script: 'Write-Output ''$(AKSURL)'''
+      
+
+      
 
   
 
