@@ -138,6 +138,9 @@ stages:
             $(Pipeline.Workspace)/manifests/second-service.yml
           containers: '$(acrdevurl)/$(imageRepo):$(tag)'
           imagePullSecrets: '$(acrsecret)'
+      - task: KubectlInstaller@0
+        inputs:
+          kubectlVersion: 'latest'
       - task: AzureCLI@2
         inputs:
           azureSubscription: 'deployPOC-ARM'
