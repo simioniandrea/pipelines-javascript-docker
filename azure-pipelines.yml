@@ -91,12 +91,12 @@ stages:
             DROP DATABASE IF EXISTS ${{parameters.customerID}};
             CREATE DATABASE ${{parameters.customerID}};
           IpDetectionMethod: 'AutoDetect'
-      - task: AzureCLI@2
-        inputs:
-          azureSubscription: 'deployPOC-ARM'
-          scriptType: 'pscore'
-          scriptLocation: 'inlineScript'
-          inlineScript: 'az mysql server create --resource-group ${{parameters.customerID}}ResourceGroup --name ${{ parameters.customerID }}mysqlserverdiprova --location westus --admin-user myadminprova --admin-password SintraOH01!1!!1 --sku-name GP_Gen5_2'
+      #- task: AzureCLI@2
+      #  inputs:
+      #    azureSubscription: 'deployPOC-ARM'
+      #    scriptType: 'pscore'
+      #    scriptLocation: 'inlineScript'
+      #    inlineScript: 'az mysql server create --resource-group ${{parameters.customerID}}ResourceGroup --name ${{ parameters.customerID }}mysqlserverdiprova --location westus --admin-user myadminprova --admin-password SintraOH01!1!!1 --sku-name GP_Gen5_2'
       
       - task: DownloadPipelineArtifact@2
         inputs:
