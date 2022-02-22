@@ -74,7 +74,7 @@ stages:
     acrsecret: k8sexamplesacrauth
     acrdevurl: 'deploypocmycontainerregistry.azurecr.io'
     customResponse: 'Hello world ${{parameters.customerID}}'
-    externalIP: '0.0.0.0'
+    externalip: '0.0.0.0'
   jobs:
     - job: Deploy
       displayName: Deploy to AKS
@@ -163,13 +163,13 @@ stages:
         inputs:
           targetType: 'inline'
           script: |
-            Write-Output "##vso[task.setvariable variable=externalIP]"$(externalipextractor.KubectlOutput).trim("'").trim()
+            Write-Output "##vso[task.setvariable variable=externalip]"$(externalipextractor.KubectlOutput).trim("'").trim()
       - task: PowerShell@2
         inputs:
           targetType: 'inline'
           script: |    
             Write-Output '$(externalipextractor.KubectlOutput)'
-            Write-Output '$(externalIP)'
+            Write-Output '$(externalip)'
 
       
 
