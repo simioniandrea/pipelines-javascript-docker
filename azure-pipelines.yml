@@ -175,7 +175,7 @@ stages:
           azureSubscription: 'deployPOC-ARM'
           scriptType: 'pscore'
           scriptLocation: 'inlineScript'
-          inlineScript: 'az network dns record-set a add-record -g MC_myapp-rg_myapp_westeurope -z a307f4c659704a0cb7d4.westeurope.aksapp.io -n sintraprova -a $(externalip)'
+          inlineScript: 'az network dns record-set a add-record -g MC_myapp-rg_myapp_westeurope -z a307f4c659704a0cb7d4.westeurope.aksapp.io -n sintraprova -a $(externalipextractor.KubectlOutput)'
       
       
       
