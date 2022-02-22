@@ -168,7 +168,7 @@ stages:
         inputs:
           targetType: 'inline'
           script: |    
-            Write-Output "$(externalIP)"
+            Write-Output '$(externalIP)'
 
       
 
