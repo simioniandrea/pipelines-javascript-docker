@@ -150,11 +150,13 @@ stages:
           arguments: 'services --namespace default  --output jsonpath=''{.items[?(.spec.selector.app=="sampleapp")].status.loadBalancer.ingress[0].ip}'''
           secretType: 'dockerRegistry'
           containerRegistryType: 'Azure Container Registry'
-      - task: InlineAzurePowershell@1
+      - task: PowerShell@2
         inputs:
-         ConnectedServiceNameSelector: 'ConnectedServiceNameARM'
-         ConnectedServiceNameARM: 'deployPOC-ARM'
-         Script: 'Write-Output ''$(task6.KubectlOutput)'''
+          targetType: 'inline'
+          script: |
+            # Write your PowerShell commands here.
+            
+            Write-Output ''$(task6.KubectlOutput)''
       
 
       
