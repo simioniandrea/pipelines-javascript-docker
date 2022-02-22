@@ -151,7 +151,7 @@ stages:
           arguments: 'services --namespace default'
           secretType: 'dockerRegistry'
           containerRegistryType: 'Azure Container Registry'
-          outputFormat: jsonpath= '{.items[?(.spec.selector.app=="provatre")].status.loadBalancer.ingress[0].ip}'
+          outputFormat: jsonpath= '{.items[?(.spec.selector.app=="provaquattro")].status.loadBalancer.ingress[0].ip}'
       
   #    - task: PowerShell@2
   #      inputs:
@@ -174,7 +174,7 @@ stages:
           azureSubscription: 'deployPOC-ARM'
           scriptType: 'pscore'
           scriptLocation: 'inlineScript'
-          inlineScript: 'az network dns record-set a add-record -g MC_myapp-rg_myapp_westeurope -z a307f4c659704a0cb7d4.westeurope.aksapp.io -n provatre -a $(externalipextractor.KubectlOutput)'
+          inlineScript: 'az network dns record-set a add-record -g MC_myapp-rg_myapp_westeurope -z a307f4c659704a0cb7d4.westeurope.aksapp.io -n provaquattro -a $(externalipextractor.KubectlOutput)'
       
       
       
