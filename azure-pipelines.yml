@@ -163,7 +163,7 @@ stages:
         inputs:
           targetType: 'inline'
           script: |
-            Write-Output '$(externalipextractor.KubectlOutput).trim("'").trim()'
+            Write-Output "##vso[task.setvariable variable=paperino]$(externalipextractor.KubectlOutput).trim("'")"
       - task: PowerShell@2
         inputs:
           targetType: 'inline'
