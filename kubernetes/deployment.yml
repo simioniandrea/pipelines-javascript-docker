@@ -1,19 +1,19 @@
 apiVersion : apps/v1
 kind: Deployment
 metadata:
-  name: sampleappprova 
+  name: provatre 
 spec:
   replicas: 1
   selector:
     matchLabels:
-      app: sampleappprova
+      app: provatre
   template:
     metadata:
       labels:
-        app: sampleappprova 
+        app: provatre 
     spec:
       containers:
-        - name: sampleappprova
+        - name: provatre
           image: deploypocmycontainerregistry.azurecr.io/sampleapp
           ports:
           - containerPort: 8080
