@@ -142,7 +142,7 @@ stages:
         inputs:
           kubectlVersion: 'latest'
       - task: Kubernetes@1
-        name: 'task6'
+        name: 'externalipextractor'
         inputs:
           connectionType: 'Kubernetes Service Connection'
           kubernetesServiceEndpoint: 'deployPOC-Kubernetes'
@@ -154,7 +154,7 @@ stages:
         inputs:
           targetType: 'inline'
           script: |    
-            Write-Output "Hello world"
+            Write-Output "$(externalipextractor.KubectlOutput)"
       
 
       
