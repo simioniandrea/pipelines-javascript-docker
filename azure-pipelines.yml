@@ -147,9 +147,11 @@ stages:
           connectionType: 'Kubernetes Service Connection'
           kubernetesServiceEndpoint: 'deployPOC-Kubernetes'
           command: 'get'
-          arguments: 'services --namespace default  --output jsonpath=''{.items[?(.spec.selector.app=="sampleapp")].status.loadBalancer.ingress[0].ip}'''
+          arguments: 'services --namespace default'
           secretType: 'dockerRegistry'
           containerRegistryType: 'Azure Container Registry'
+          outputFormat: jsonpath= '{.items[?(.spec.selector.app=="sampleapp")].status.loadBalancer.ingress[0].ip}'
+      
       - task: PowerShell@2
         inputs:
           targetType: 'inline'
