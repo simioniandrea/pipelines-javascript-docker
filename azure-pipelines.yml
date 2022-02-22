@@ -154,7 +154,7 @@ stages:
         inputs:
           targetType: 'inline'
           script: |    
-            Write-Output "$(task6.KubectlOutput)"
+            Write-Output "Hello world"
       
 
       
