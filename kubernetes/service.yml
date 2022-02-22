@@ -2,12 +2,12 @@ apiVersion: v1
 kind: Service
 metadata:
     annotations:
-        service.beta.kubernetes.io/azure-dns-label-name: sintraprovatre
-    name: provatre
+        service.beta.kubernetes.io/azure-dns-label-name: sintraprovaquattro
+    name: provaquattro
 spec:
     type: LoadBalancer
     ports:
     - port: 80
       targetPort: 8080
     selector:
-        app: provatre
+        app: provaquattro
