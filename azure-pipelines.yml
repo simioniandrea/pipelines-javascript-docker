@@ -151,7 +151,7 @@ stages:
           arguments: 'services --namespace default'
           secretType: 'dockerRegistry'
           containerRegistryType: 'Azure Container Registry'
-          outputFormat: jsonpath= '{.items[?(.spec.selector.app=="sampleapp")].status.loadBalancer.ingress[0].ip}'
+          outputFormat: jsonpath= '{.items[?(.spec.selector.app=="sampleappprova")].status.loadBalancer.ingress[0].ip}'
       
       - task: PowerShell@2
         inputs:
