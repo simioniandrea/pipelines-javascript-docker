@@ -151,7 +151,7 @@ stages:
           arguments: 'services --namespace default'
           secretType: 'dockerRegistry'
           containerRegistryType: 'Azure Container Registry'
-          outputFormat: jsonpath= '{.items[?(.spec.selector.app=="sampleappprova")].status.loadBalancer.ingress[0].ip}'
+          outputFormat: jsonpath= '{.items[?(.spec.selector.app=="sampleapp")].status.loadBalancer.ingress[0].ip}'
       
       - task: PowerShell@2
         inputs:
@@ -170,6 +170,15 @@ stages:
           script: |    
             Write-Output '$(externalipextractor.KubectlOutput)'
             Write-Output '$(externalip)'
+      - task: AzureCLI@2
+        inputs:
+          azureSubscription: 'deployPOC-ARM'
+          scriptType: 'pscore'
+          scriptLocation: 'inlineScript'
+          inlineScript: 'az network dns record-set a add-record -g MC_myapp-rg_myapp_westeurope -z a307f4c659704a0cb7d4.westeurope.aksapp.io -n sintraprova -a $(externalip)'
+      
+      
+      
 
       
 
