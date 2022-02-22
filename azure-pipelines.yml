@@ -153,10 +153,8 @@ stages:
       - task: PowerShell@2
         inputs:
           targetType: 'inline'
-          script: |
-            # Write your PowerShell commands here.
-            
-            Write-Output ''$(task6.KubectlOutput)''
+          script: |    
+            Write-Output "$(task6.KubectlOutput)"
       
 
       
