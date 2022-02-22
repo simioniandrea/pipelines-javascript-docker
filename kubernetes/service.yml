@@ -3,11 +3,11 @@ kind: Service
 metadata:
     annotations:
         service.beta.kubernetes.io/azure-dns-label-name: sintralabpimcoredeploy
-    name: sampleappprova
+    name: provatre
 spec:
     type: LoadBalancer
     ports:
     - port: 80
       targetPort: 8080
     selector:
-        app: sampleappprova
+        app: provatre
