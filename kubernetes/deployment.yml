@@ -1,19 +1,19 @@
 apiVersion : apps/v1
 kind: Deployment
 metadata:
-  name: provaquattro 
+  name: provacinque 
 spec:
   replicas: 1
   selector:
     matchLabels:
-      app: provaquattro
+      app: provacinque
   template:
     metadata:
       labels:
-        app: provaquattro 
+        app: provacinque 
     spec:
       containers:
-        - name: provaquattro
+        - name: provacinque
           image: sintrasohregistry.azurecr.io/soh-pimcore:latest
           ports:
           - containerPort: 80
