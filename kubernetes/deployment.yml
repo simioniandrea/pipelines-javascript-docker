@@ -19,9 +19,7 @@ spec:
           - containerPort: 80
           env:
           - name: PIMCORE_DB_HOST
-            value: analyticserver01.mysql.database.azure.com
-          - name: PIMCORE_DB_PORT
-            value: 3306            
+            value: analyticserver01.mysql.database.azure.com            
           - name: PIMCORE_DB_USER
             value: admin01@analyticserver01
           - name: PIMCORE_DB_PSW
