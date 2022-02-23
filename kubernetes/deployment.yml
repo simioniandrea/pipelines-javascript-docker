@@ -14,9 +14,17 @@ spec:
     spec:
       containers:
         - name: provaquattro
-          image: deploypocmycontainerregistry.azurecr.io/sampleapp
+          image: sintrasohregistry.azurecr.io/soh-pimcore:latest
           ports:
-          - containerPort: 8080
+          - containerPort: 80
           env:
-          - name: RESPONSE
-            value: #customResponse#
+          - name: PIMCORE_DB_HOST
+            value: analyticserver01.mysql.database.azure.com
+          - name: PIMCORE_DB_PORT
+            value: 3306            
+          - name: PIMCORE_DB_USER
+            value: admin01@analyticserver01
+          - name: PIMCORE_DB_PSW
+            value: Analisidati01
+          - name: PIMCORE_DB_NAME
+            value: giannan49
