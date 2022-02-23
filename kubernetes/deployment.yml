@@ -26,3 +26,5 @@ spec:
             value: Analisidati01
           - name: PIMCORE_DB_NAME
             value: giannan49
+          - name: PIMCORE_DB_PORT
+            value: '3306'
