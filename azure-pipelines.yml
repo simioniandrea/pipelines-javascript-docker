@@ -107,7 +107,11 @@ stages:
         inputs:
           buildType: 'current'
           artifactName: 'dump'
-          targetPath: '$(Pipeline.Workspace)/dump'      
+          targetPath: '$(Pipeline.Workspace)/dump'
+      - task: Bash@3
+        inputs:
+          targetType: 'inline'
+          script: 'mysql -h ${{parameters.dbServer}} -u ${{parameters.dbUser}} -p ${{parameters.dbPassword}} ${{parameters.customerID}} < $(Pipeline.Workspace)/dump/pimcore.sql'            
       - task: AzurePowerShell@5
         inputs:
           azureSubscription: 'deployPOC-ARM'
