@@ -12,7 +12,7 @@ parameters:
   - name: customerID
     displayName: customer ID
     type: string
-    default: 'uramaki300'
+    default: 'shangai45'
   - name: customerCompanyName
     displayName: customer company name
     type: string
@@ -121,6 +121,14 @@ stages:
           buildType: 'current'
           artifactName: 'manifests'
           targetPath: '$(Pipeline.Workspace)/manifests'
+      - task: Kubernetes@1
+        inputs:
+          connectionType: 'Kubernetes Service Connection'
+          kubernetesServiceEndpoint: 'deployPOC-Kubernetes'
+          command: 'create'
+          arguments: 'namespace $(tenant)'
+          secretType: 'dockerRegistry'
+          containerRegistryType: 'Azure Container Registry'
       - task: KubernetesManifest@0
         inputs:
           action: 'createSecret'
