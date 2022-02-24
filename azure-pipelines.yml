@@ -12,7 +12,7 @@ parameters:
   - name: customerID
     displayName: customer ID
     type: string
-    default: 'shangai45'
+    default: 'ecommercesrl67'
   - name: customerCompanyName
     displayName: customer company name
     type: string
@@ -133,7 +133,7 @@ stages:
         inputs:
           action: 'createSecret'
           kubernetesServiceConnection: 'deployPOC-Kubernetes'
-          namespace: 'default'
+          namespace: '$(tenant)'
           secretType: 'dockerRegistry'
           secretName: '$(acrsecret)'
           dockerRegistryEndpoint: 'DeployPOC-SOH container registry'
@@ -174,7 +174,7 @@ stages:
         inputs:
           action: 'deploy'
           kubernetesServiceConnection: 'deployPOC-Kubernetes'
-          namespace: 'default'
+          namespace: '$(tenant)'
           manifests: |
             $(Pipeline.Workspace)/manifests/deployment.yml
             $(Pipeline.Workspace)/manifests/service.yml
@@ -189,7 +189,7 @@ stages:
           connectionType: 'Kubernetes Service Connection'
           kubernetesServiceEndpoint: 'deployPOC-Kubernetes'
           command: 'get'
-          arguments: 'services --namespace default'
+          arguments: 'services --namespace $(tenant)'
           secretType: 'dockerRegistry'
           containerRegistryType: 'Azure Container Registry'
           outputFormat: jsonpath= '{.items[?(.spec.selector.app=="$(tenant)")].status.loadBalancer.ingress[0].ip}'
