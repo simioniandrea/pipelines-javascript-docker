@@ -12,7 +12,7 @@ parameters:
   - name: customerID
     displayName: customer ID
     type: string
-    default: 'uramaki50'
+    default: 'uramaki78'
   - name: customerCompanyName
     displayName: customer company name
     type: string
@@ -79,6 +79,10 @@ stages:
     acrsecret: k8sexamplesacrauth
     acrdevurl: 'sintrasohregistry.azurecr.io'
     customResponse: 'Hello world ${{parameters.customerID}}'
+    host: ${{parameters.dbServer}}
+    user: ${{parameters.dbUser}}
+    password: ${{parameters.dbPassword}}
+    tenant: ${{parameters.customerID}}
     externalip: '0.0.0.0'
   jobs:
     - job: Deploy
@@ -89,13 +93,13 @@ stages:
       - task: AzureMysqlDeployment@1
         inputs:
           azureSubscription: 'deployPOC-ARM'
-          ServerName:  '${{parameters.dbServer}}'
-          SqlUsername:  '${{parameters.dbUser}}'
-          SqlPassword:  '${{parameters.dbPassword}}'
+          ServerName:  '$(host)'
+          SqlUsername:  '$(user)'
+          SqlPassword:  '$(password)'
           TaskNameSelector: 'InlineSqlTask'
           SqlInline: |
-            DROP DATABASE IF EXISTS ${{parameters.customerID}};
-            CREATE DATABASE ${{parameters.customerID}};
+            DROP DATABASE IF EXISTS $(tenant);
+            CREATE DATABASE $(tenant);
           IpDetectionMethod: 'AutoDetect'
       #- task: AzureCLI@2
       #  inputs:
@@ -111,13 +115,7 @@ stages:
       - task: Bash@3
         inputs:
           targetType: 'inline'
-          script: 'mysql -h ${{parameters.dbServer}} -u ${{parameters.dbUser}} --password=${{parameters.dbPassword}} ${{parameters.customerID}} < $(Pipeline.Workspace)/dump/pimcore.sql'            
-      - task: AzurePowerShell@5
-        inputs:
-          azureSubscription: 'deployPOC-ARM'
-          ScriptType: 'InlineScript'
-          Inline: 'mysql -h ${{parameters.dbServer}} -u ${{parameters.dbUser}} --password=${{parameters.dbPassword}} ${{parameters.customerID}} < $(Pipeline.Workspace)/dump/pimcore.sql'
-      
+          script: 'mysql -h $(host) -u $(user) --password=$(password) $(tenant) < $(Pipeline.Workspace)/dump/pimcore.sql'                  
       - task: DownloadPipelineArtifact@2
         inputs:
           buildType: 'current'
@@ -132,22 +130,38 @@ stages:
           secretName: '$(acrsecret)'
           dockerRegistryEndpoint: 'DeployPOC-SOH container registry'
 
-#      - task: replacetokens@5
-#        displayName: Replace Tokens
-#        inputs:
-#          rootDirectory: '$(Pipeline.Workspace)/manifests/'
-#          targetFiles: 'deployment.yml'
-#          encoding: 'auto'
-#          tokenPattern: 'custom'
-#          tokenPrefix: '#'
-#          tokenSuffix: '#'
-#          writeBOM: true
-#          actionOnMissing: 'warn'
-#          keepToken: false
-#          actionOnNoFiles: 'continue'
-#          enableTransforms: false
-#          useLegacyPattern: false
-#          enableTelemetry: true
+      - task: replacetokens@5
+        displayName: Replace Tokens
+        inputs:
+          rootDirectory: '$(Pipeline.Workspace)/manifests/'
+          targetFiles: 'deployment.yml'
+          encoding: 'auto'
+          tokenPattern: 'custom'
+          tokenPrefix: '#'
+          tokenSuffix: '#'
+          writeBOM: true
+          actionOnMissing: 'warn'
+          keepToken: false
+          actionOnNoFiles: 'continue'
+          enableTransforms: false
+          useLegacyPattern: false
+          enableTelemetry: true
+      - task: replacetokens@5
+        displayName: Replace Tokens
+        inputs:
+          rootDirectory: '$(Pipeline.Workspace)/manifests/'
+          targetFiles: 'service.yml'
+          encoding: 'auto'
+          tokenPattern: 'custom'
+          tokenPrefix: '#'
+          tokenSuffix: '#'
+          writeBOM: true
+          actionOnMissing: 'warn'
+          keepToken: false
+          actionOnNoFiles: 'continue'
+          enableTransforms: false
+          useLegacyPattern: false
+          enableTelemetry: true
       - task: KubernetesManifest@0
         inputs:
           action: 'deploy'
